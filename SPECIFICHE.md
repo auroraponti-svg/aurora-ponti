@@ -263,11 +263,10 @@ Ogni sezione ha un movimento diverso, coerente con quello che mostra. **Non appl
 
 Gli stati hover vanno chiusi in `@media (hover: hover) and (pointer: fine)`: sui dispositivi touch l'hover si attiva al tocco e resta appiccicato.
 
-Il cursore personalizzato usa una molla (`stiffness: 100, damping: 15`) invece di seguire la posizione esatta del mouse: senza inerzia sembra incollato al puntatore e innaturale.
+Il cursore personalizzato non segue la posizione esatta del mouse: a ogni frame si avvicina del **15%** della distanza che lo separa dal puntatore (`x += (obiettivo - x) * 0.15`). Senza questa inerzia sembra incollato al puntatore e innaturale; molto più in basso arriva in ritardo, come un cane al guinzaglio. Se si usa una libreria di animazione, l'equivalente è una molla con `stiffness: 100, damping: 15` — stesso comportamento, due modi di scriverlo: **implementarne uno solo.**
 
-> ⚠ **Molla del cursore.** GSAP non ha una fisica a molla: lavora a durate e curve. Per rispettare `stiffness` e
-> `damping` il cursore usa una piccola molla scritta a mano (`requestAnimationFrame`). GSAP + ScrollTrigger restano
-> per il parallax.
+> **Scelta (24 settembre 2026):** si implementa la formula del 15% a ogni frame, in poche righe di JavaScript con
+> `requestAnimationFrame`, senza libreria. GSAP + ScrollTrigger restano solo per il parallax.
 
 ## Responsive
 
