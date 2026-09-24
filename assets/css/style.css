@@ -1,12 +1,14 @@
 /* =========================================================================
    STILE DEL SITO
-   Usa solo i token di tokens.css: qui non compaiono colori o misure "a mano".
+   Usa i token di tokens.css: colori e misure si cambiano lì, non qui.
 
    INDICE
    1. Base ............ fondo, testo e font di tutta la pagina
    2. Tipografia ...... una classe per ogni ruolo della tabella tipografica
    3. Utilità ......... classi piccole riusate ovunque
-   4. Sezioni ......... 01 Hero → 07 Contatto (dal punto 2)
+   4. Impaginazione ... colonna centrale e altezza delle sezioni
+   5. Componenti ...... skip link, barra, pulsanti, link, segnaposto
+   6. Sezioni ......... 01 Hero → 07 Contatto
    ========================================================================= */
 
 
@@ -49,12 +51,28 @@ body {
   letter-spacing: var(--ls-hero);
 }
 
+/* Titolo grande (FLU / Uniting, Parliamone.) */
+.t-title-xl {
+  font-family: var(--font-display);
+  font-size: var(--fs-title-xl);
+  line-height: var(--lh-title-xl);
+  letter-spacing: var(--ls-title-xl);
+}
+
 /* Titolo sezione */
 .t-section {
   font-family: var(--font-display);
   font-size: var(--fs-section);
   line-height: var(--lh-section);
   letter-spacing: var(--ls-section);
+}
+
+/* Titolo piccolo (Il mio percorso) */
+.t-title-sm {
+  font-family: var(--font-display);
+  font-size: var(--fs-title-sm);
+  line-height: var(--lh-title-sm);
+  letter-spacing: var(--ls-title-sm);
 }
 
 /* Frase in evidenza (sez. 05) */
@@ -71,6 +89,14 @@ body {
   font-size: var(--fs-project);
   line-height: var(--lh-project);
   letter-spacing: var(--ls-project);
+}
+
+/* Attacco (Nata tra strategia e operatività) */
+.t-lead {
+  font-family: var(--font-display);
+  font-size: var(--fs-lead);
+  line-height: var(--lh-lead);
+  letter-spacing: var(--ls-lead);
 }
 
 /* Tappa processo (sez. 04) */
@@ -100,6 +126,11 @@ body {
   max-width: var(--measure);
 }
 
+/* Paragrafo da 15px, il minimo della forbice 15–16 */
+.t-body--sm {
+  font-size: var(--fs-body-sm);
+}
+
 /* Meta / categoria */
 .t-meta {
   font-family: var(--font-body);
@@ -107,6 +138,14 @@ body {
   font-size: var(--fs-meta);
   line-height: var(--lh-meta);
   letter-spacing: var(--ls-meta);
+}
+
+/* Dettaglio (azienda e anni della timeline) */
+.t-detail {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--fs-detail);
+  line-height: var(--lh-meta);
 }
 
 /* Statistiche (sez. 02): cifre tabellari, così i numeri si incolonnano */
@@ -119,13 +158,8 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-/* Corsivo dei titoli (es. "Altri lavori"): il colore lo decide la sezione */
-.t-hero em,
-.t-section em,
-.t-quote em,
-.t-project em,
-.t-step em,
-.t-timeline em {
+/* Corsivo dei titoli: il colore lo decide ogni sezione */
+em {
   font-style: italic;
 }
 
@@ -139,7 +173,7 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-/* Nascosto alla vista, letto dai lettori di schermo (es. h2 delle sez. 02 e 05) */
+/* Nascosto alla vista, letto dai lettori di schermo (h2 delle sez. 02 e 05) */
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -155,8 +189,751 @@ body {
 
 
 /* =========================================================================
-   4. SEZIONI
-   Arrivano al punto 2, una per blocco, in ordine di pagina:
-   01 Hero · 02 Progetto in evidenza · 03 Altri progetti · 04 Come lavoro ·
-   05 Chi sono · 06 Percorso · 07 Contatto
+   4. IMPAGINAZIONE
    ========================================================================= */
+
+/* Colonna centrale: 1440px al massimo, margine di 90px a sinistra e a
+   destra. È la regola che tiene insieme il progetto: ogni sezione usa
+   questa colonna, così il bordo sinistro del testo non si sposta mai. */
+.wrap {
+  width: 100%;
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-inline: var(--margin-x);
+}
+
+/* Ogni sezione è alta almeno quanto la finestra, e mai meno di 760px.
+   Prima riga: ripiego per i browser che non conoscono svh. */
+.section {
+  position: relative;
+  min-height: max(var(--section-min-h), 100vh);
+  min-height: max(var(--section-min-h), 100svh);
+}
+
+
+/* =========================================================================
+   5. COMPONENTI
+   ========================================================================= */
+
+/* ---------- Skip link: invisibile finché non riceve il focus ---------- */
+
+.skip-link {
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-3);
+  z-index: 100;
+  padding: var(--space-3) var(--space-4);
+  background: var(--ink);
+  color: var(--bg);
+  font-weight: 500;
+  font-size: var(--fs-button);
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+
+/* ---------- Barra fissa: due voci ---------- */
+
+.site-header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  height: var(--header-h);
+  background: rgb(255 255 255 / 0.85);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.site-header__inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Le due voci sono alte 44px: area toccabile minima */
+.site-header__name,
+.site-header__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.site-header__name {
+  font-family: var(--font-display);
+  font-size: 0.9375rem; /* 15px */
+}
+
+.site-header__link {
+  font-weight: 500;
+  font-size: var(--fs-meta);
+}
+
+
+/* ---------- Icone: frecce disegnate a tratto ---------- */
+
+.icon {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+
+/* ---------- Pulsante a capsula (hero) ---------- */
+
+.btn-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: 48px;
+  padding-inline: var(--space-8);
+  border: 1px solid var(--blue);
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--blue);
+  font-weight: 500;
+  font-size: var(--fs-button);
+  line-height: 1;
+  text-decoration: none;
+}
+
+
+/* ---------- Pulsante tondo (frecce sez. 02) ---------- */
+
+.btn-round {
+  display: inline-grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid var(--on-deep-line);
+  border-radius: 50%;
+  color: var(--bg);
+}
+
+.btn-round--filled {
+  border-color: var(--bg);
+  background: var(--bg);
+  color: var(--blue-deep);
+}
+
+
+/* ---------- Link con freccia ("Vedi il caso completo") ---------- */
+
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  font-weight: 500;
+  font-size: var(--fs-link);
+  line-height: 1.4;
+  text-decoration: none;
+}
+
+.link-arrow__text {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 8px;
+}
+
+
+/* ---------- Segnaposto: materiale da fornire ----------
+   Riquadro tinta con la misura scritta sopra, così non si confonde
+   con un contenuto vero. */
+
+.placeholder {
+  display: grid;
+  place-items: center;
+  padding: var(--space-4);
+  background: var(--tint);
+  color: var(--ink-3);
+  font-weight: 500;
+  font-size: var(--fs-label);
+  line-height: 1.6;
+  letter-spacing: 0.06em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* Variante su fondo blu (foto della sezione 02) */
+.placeholder--dark {
+  background: none;
+  color: var(--blue-soft);
+}
+
+
+/* =========================================================================
+   6. SEZIONI
+   ========================================================================= */
+
+
+/* -------------------------------------------------------------------------
+   01 — HERO
+   Nome a sinistra sul margine di 90px, foto verticale a destra come
+   contrappeso, linee di flusso sullo sfondo. Tutto centrato in altezza.
+   ------------------------------------------------------------------------- */
+
+.hero {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+/* Linee di sfondo: si allungano con la sezione, lo spessore resta 1.25px */
+.hero__lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.hero__line {
+  fill: none;
+  stroke: var(--blue-soft);
+  stroke-width: 1.25;
+  vector-effect: non-scaling-stroke;
+}
+
+.hero__line--1 { stroke-opacity: 0.55; }
+.hero__line--2 { stroke-opacity: 0.38; }
+.hero__line--3 { stroke-opacity: 0.24; }
+
+.hero__inner {
+  position: relative; /* sopra le linee */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-10);
+}
+
+.hero__name {
+  color: var(--ink);
+}
+
+/* Una riga per parola: servirà anche all'animazione riga per riga */
+.hero__name-line {
+  display: block;
+}
+
+.hero__role {
+  margin-top: var(--space-7);
+  font-size: var(--fs-role);
+  line-height: 1.4;
+  color: var(--blue);
+}
+
+.hero__summary {
+  margin-top: var(--space-3);
+  max-width: 45ch;
+}
+
+.hero .btn-pill {
+  margin-top: var(--space-10);
+}
+
+/* Foto: 320×420, contrappeso verticale sul margine destro */
+.hero__photo {
+  flex: none;
+  width: 320px;
+  height: 420px;
+  border: 1px solid var(--line);
+}
+
+
+/* -------------------------------------------------------------------------
+   02 — PROGETTO IN EVIDENZA
+   Unica sezione su blu profondo. Due pannelli a tutta altezza: foto 52%,
+   contenuto 48%. Qui il margine è interno ai pannelli: 72px.
+   ------------------------------------------------------------------------- */
+
+.featured {
+  display: grid;
+  grid-template-columns: var(--split-photo) var(--split-content);
+  background: var(--blue-deep);
+  color: var(--bg);
+  --focus: var(--focus-on-dark); /* anello bianco: il blu qui non si vedrebbe */
+}
+
+/* Pannello foto */
+.featured__media {
+  position: relative;
+  background: var(--blue-panel);
+}
+
+.featured__photo {
+  position: absolute;
+  inset: 0;
+}
+
+/* Contatore e frecce, in basso sul pannello foto */
+.featured__nav {
+  position: absolute;
+  right: var(--margin-x-panel);
+  bottom: 52px;
+  left: var(--margin-x-panel);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.featured__counter {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  line-height: 1;
+}
+
+.featured__current {
+  font-family: var(--font-display);
+  font-size: var(--fs-title-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.featured__total {
+  font-size: var(--fs-detail);
+  color: var(--blue-soft);
+}
+
+.featured__arrows {
+  display: flex;
+  gap: var(--space-3);
+}
+
+/* Pannello contenuto: blocco centrato nello spazio sotto i primi 208px,
+   come nel mockup, dove il contenuto sta un po' sotto la metà */
+.featured__content {
+  display: flex;
+  align-items: center;
+  padding: 208px var(--margin-x-panel) var(--space-12);
+}
+
+.case {
+  width: 100%;
+}
+
+.case__meta {
+  color: var(--blue-soft);
+}
+
+.case__name {
+  margin-top: var(--space-4);
+}
+
+.case__desc {
+  margin-top: var(--space-5);
+  color: var(--on-deep-text);
+}
+
+/* Tre statistiche in riga, sotto un divisore sottile */
+.stats {
+  display: flex;
+  gap: 44px;
+  margin-top: var(--space-10);
+  padding-top: var(--space-7);
+  border-top: 1px solid var(--on-deep-line);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.stat__label {
+  font-size: var(--fs-label);
+  line-height: 1.2;
+  color: var(--blue-soft);
+}
+
+.case .link-arrow {
+  margin-top: var(--space-10);
+  color: var(--bg);
+}
+
+.case .link-arrow__text {
+  text-decoration-color: var(--blue-soft);
+}
+
+
+/* -------------------------------------------------------------------------
+   03 — ALTRI PROGETTI
+   Tre righe editoriali: testo 44% / immagine 56%, 36px di distanza.
+   La riga centrale è specchiata. Immagini tutte alte 172px.
+   ------------------------------------------------------------------------- */
+
+.works {
+  padding-block: 84px var(--space-14);
+}
+
+.works__title {
+  font-size: var(--fs-section-compact);
+}
+
+.works__list {
+  margin-top: var(--space-3);
+}
+
+.work {
+  display: grid;
+  grid-template-columns: minmax(0, 44fr) minmax(0, 56fr);
+  column-gap: var(--row-gap);
+  align-items: center;
+  padding-block: var(--space-7) var(--space-8);
+}
+
+/* Separatore tra le righe, non sopra la prima */
+.work + .work {
+  border-top: 1px solid var(--line-soft);
+}
+
+/* Riga specchiata: l'immagine va a sinistra, il testo a destra.
+   Nel codice il testo resta prima dell'immagine, così l'ordine di
+   lettura non cambia per chi usa un lettore di schermo. */
+.work--mirror {
+  grid-template-columns: minmax(0, 56fr) minmax(0, 44fr);
+}
+
+.work--mirror .work__text {
+  grid-column: 2;
+  grid-row: 1;
+  text-align: right;
+}
+
+.work--mirror .work__image {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+/* Il paragrafo si stringe e si appoggia al bordo destro */
+.work--mirror .work__desc {
+  margin-left: auto;
+}
+
+/* Il testo crea un piano proprio: il numero sta dietro, non sotto la pagina */
+.work__text {
+  position: relative;
+  isolation: isolate;
+}
+
+/* Numero grande di sfondo: decorativo, sborda oltre il margine */
+.work__num {
+  position: absolute;
+  top: -50px;
+  left: -14px;
+  z-index: -1;
+  font-size: 120px;
+  line-height: 1;
+  color: var(--bg-alt);
+  pointer-events: none;
+  user-select: none;
+}
+
+.work--mirror .work__num {
+  right: -19px;
+  left: auto;
+}
+
+.work__meta {
+  color: var(--blue);
+}
+
+.work__name {
+  margin-top: var(--space-2);
+}
+
+.work__desc {
+  margin-top: var(--space-3);
+  font-size: var(--fs-body-sm);
+  max-width: 44ch;
+}
+
+.work__image {
+  height: var(--row-image-h);
+}
+
+
+/* -------------------------------------------------------------------------
+   04 — COME LAVORO
+   Titolo, sottotitolo e linea di processo con quattro tappe. La linea va
+   da --line a --blue: la progressione è l'avanzamento nel funnel.
+   ------------------------------------------------------------------------- */
+
+.method {
+  padding-block: 104px var(--space-24);
+  background: var(--bg-alt);
+}
+
+.method__title em {
+  color: var(--blue);
+}
+
+.method__intro {
+  margin-top: var(--space-5);
+}
+
+.process {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: var(--space-8);
+  margin-top: 196px;
+}
+
+/* La linea passa dal centro dei pallini */
+.process::before {
+  content: "";
+  position: absolute;
+  top: 8.5px;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--line), var(--blue));
+}
+
+/* Pallini: fondo del colore della sezione, così "bucano" la linea */
+.process__dot {
+  position: relative;
+  display: block;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid rgb(143 165 212 / 0.5); /* --blue-soft al 50% */
+  border-radius: 50%;
+  background: var(--bg-alt);
+}
+
+.process__step:nth-child(2) .process__dot { border-color: var(--blue-soft); }
+.process__step:nth-child(3) .process__dot { border-color: var(--blue); }
+.process__step:nth-child(4) .process__dot { border-color: var(--blue); background: var(--blue); }
+
+/* Numeri: la progressione resta, ma tutti sopra 4.5:1 di contrasto */
+.process__num {
+  margin-top: var(--space-7);
+  color: var(--ink-3);
+}
+
+.process__step:nth-child(2) .process__num { color: #435990; } /* a metà tra --ink-3 e --blue */
+.process__step:nth-child(3) .process__num,
+.process__step:nth-child(4) .process__num { color: var(--blue); }
+
+.process__name {
+  margin-top: var(--space-2);
+}
+
+.process__step:nth-child(4) .process__name {
+  color: var(--blue);
+}
+
+.process__desc {
+  margin-top: var(--space-3);
+  font-size: var(--fs-body-sm);
+}
+
+
+/* -------------------------------------------------------------------------
+   05 — CHI SONO
+   Tre blocchi asimmetrici in alto (larghezze diverse, non in griglia),
+   linea tratteggiata, frase grande in basso.
+   ------------------------------------------------------------------------- */
+
+.about {
+  padding-block: 128px var(--space-24);
+}
+
+/* Colonne 372 / 480 / 408 px a 1440: il ritmo viene dall'asimmetria */
+.about__blocks {
+  display: grid;
+  grid-template-columns: minmax(0, 372fr) minmax(0, 480fr) minmax(0, 408fr);
+  align-items: start;
+}
+
+.about__col {
+  margin-top: 5px;
+  font-size: var(--fs-body-sm);
+  max-width: 41ch;
+}
+
+.about__rule {
+  height: 1px;
+  margin-top: 72px;
+  background: repeating-linear-gradient(90deg, var(--line) 0 2px, transparent 2px 6px);
+}
+
+.about__quote {
+  margin-top: 72px;
+}
+
+.about__quote em {
+  color: var(--blue);
+}
+
+
+/* -------------------------------------------------------------------------
+   06 — PERCORSO
+   Titolo in alto a destra, sei righe su tre colonne (38% / 38% / 24%)
+   con gli anni allineati a destra.
+   ------------------------------------------------------------------------- */
+
+.path {
+  padding-block: 92px var(--space-24);
+  background: var(--bg-alt);
+}
+
+/* Il titolo si appoggia al margine destro */
+.path__title {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: var(--space-5);
+}
+
+.path__title em {
+  color: var(--blue);
+}
+
+.path__arrow {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-top: var(--space-4); /* all'altezza delle minuscole di "Il mio" */
+  fill: none;
+  stroke: var(--blue);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.timeline {
+  margin-top: var(--space-1);
+}
+
+.timeline__row {
+  display: grid;
+  grid-template-columns: 38% 38% 24%;
+  align-items: baseline;
+  padding-block: var(--space-7) var(--space-6);
+}
+
+.timeline__row + .timeline__row {
+  border-top: 1px solid var(--line-soft);
+}
+
+.timeline__org {
+  color: var(--ink-2);
+}
+
+.timeline__years {
+  color: var(--ink-3);
+  text-align: right;
+}
+
+
+/* -------------------------------------------------------------------------
+   07 — CONTATTO
+   Scritta gigante di sfondo, sempre dentro i margini; in primo piano
+   titolo, email e link, centrati.
+   ------------------------------------------------------------------------- */
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--bg);
+  container-type: inline-size; /* serve a misurare la scritta gigante */
+}
+
+/* La scritta occupa esattamente la colonna tra i due margini di 90px:
+   la dimensione si calcola dalla larghezza della sezione (cqi).
+   5.01 è la larghezza di "CONTATTO" in DM Sans, in em; il margine
+   negativo toglie lo spazio interno della C, così il bordo della
+   lettera cade proprio sulla linea dei 90px. */
+.contact__giant-wrap {
+  position: absolute;
+  right: 0;
+  bottom: 12px;
+  left: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+.contact__giant {
+  font-size: 15vw; /* ripiego per i browser senza cqi */
+  font-size: calc((min(100cqi, var(--page-max)) - 2 * var(--margin-x)) / 5.01);
+  line-height: 1;
+  text-indent: -0.04em;
+  color: var(--tint);
+  white-space: nowrap;
+}
+
+.contact__inner {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.contact__dot {
+  color: var(--blue);
+}
+
+.contact__email-wrap {
+  margin-top: var(--space-5);
+}
+
+.contact__email {
+  font-size: var(--fs-email);
+  color: var(--blue);
+  text-decoration: underline;
+  text-decoration-color: var(--blue-soft);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 6px;
+}
+
+.contact__links {
+  display: flex;
+  align-items: center;
+  margin-top: var(--space-8);
+  font-size: var(--fs-detail);
+}
+
+/* Puntino tra i link: disegnato, non un carattere, così non viene letto */
+.contact__links li + li::before {
+  content: "";
+  display: inline-block;
+  width: 3px;
+  height: 3px;
+  margin-inline: 28px;
+  border-radius: 50%;
+  background: var(--line);
+  vertical-align: middle;
+}
+
+.contact__link {
+  color: var(--ink-2);
+  text-decoration: none;
+}
+
+/* Piede fuori dal flusso: il blocco centrale resta centrato sull'intera sezione */
+.contact__footer {
+  position: absolute;
+  right: 0;
+  bottom: 40px;
+  left: 0;
+  font-size: var(--fs-label);
+  color: var(--ink-3);
+}

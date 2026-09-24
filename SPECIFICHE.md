@@ -67,6 +67,23 @@ Attivare le cifre tabellari su DM Sans ovunque compaiano numeri in colonna — d
 
 Limite di misura per i paragrafi: 40–52 caratteri per riga (`max-width` in `ch`, non in px). Oltre, l'occhio perde la riga di ritorno.
 
+**Ruoli presi dal mockup** (decisione del 24 settembre 2026: le misure che il mockup usa davvero entrano nelle
+specifiche). Misurate al pixel sui riferimenti a 1440px.
+
+| Ruolo | Font | Dimensione | Interlinea | Crenatura | Dove |
+| --- | --- | --- | --- | --- | --- |
+| Titolo sezione, variante compatta | display | 46px | 1.08 | -0.025em | "Altri lavori" (03); la 04 usa 52px |
+| Titolo grande | display | 64px | 1.05 | -0.025em | "FLU / Uniting" (02), "Parliamone." (07) |
+| Titolo piccolo | display | 40px | 1.3 | -0.025em | "Il mio percorso" (06), contatore "01" (02) |
+| Attacco | display | 32px | 1.2 | -0.015em | "Nata tra strategia e operatività" (05) |
+| Ruolo hero | body 400 | 19px | 1.4 | 0 | "Marketing Manager Junior — …" |
+| Email | body 400 | 17px | — | 0 | Email nel contatto (07) |
+| Link con freccia | body 500 | 15px | 1.4 | 0 | "Vedi il caso completo" |
+| Pulsante | body 500 | 14px | 1 | 0 | "Guarda i progetti" |
+| Dettaglio | body 400 | 14px | 1.4 | 0 | Azienda e anni (06), link social (07), "/ 01" (02) |
+| Etichetta | body 400 | 12px | 1.2 | 0 | Etichette statistiche (02), piè di pagina (07) |
+| Numero di sfondo | body 400 | 120px | 1 | 0 | Numeri 01–03 della sezione 03, colore `--bg-alt` |
+
 ## Griglia e margini
 
 **La regola che conta: margine sinistro di 90px identico su tutte le sezioni.** Scorrendo la pagina, il bordo sinistro del testo non si sposta mai. È il dettaglio che nessuno nota consapevolmente e che distingue un sito progettato da uno assemblato — non va rotto per nessun motivo estetico.
@@ -346,10 +363,11 @@ Risposte alle domande aperte prima dello sviluppo. Valgono come il resto del doc
 - **D4 — Sezione 02.** Contatore `01 / 01`, frecce nascoste finché gli altri casi non esistono. "Vedi il caso
   completo" porta alla pagina di caso studio: la modale ipotizzata in un primo momento è superata da
   "La pagina di caso studio".
-- **D5 — Destinazioni.** Il meccanismo `data-destinazione` si predispone subito, per tutte le righe progetto; lo
-  stato di ogni progetto arriva con i contenuti (vedi "Cosa serve da Aurora").
+- **D5 — Destinazioni.** Il meccanismo `data-destinazione` si predispone subito, per tutte le righe progetto. Per
+  ora: FLU / Uniting è `caso` (pagina con segnaposto), le tre righe della sezione 03 sono `nessuno`. Lo stato
+  definitivo di ogni progetto arriva con i contenuti (vedi "Cosa serve da Aurora").
 - **D6 — Percorso.** Le due voci "Stage marketing — Boggi Milano" (2021 e 2019) sono corrette, non un doppione.
-- **D7 — Pulsante "Guarda i progetti".** Porta alla sezione 02, il primo progetto *(da confermare)*.
+- **D7 — Pulsante "Guarda i progetti".** Porta al primo progetto, la sezione 02.
 
 ### Layout
 
@@ -363,6 +381,14 @@ Risposte alle domande aperte prima dello sviluppo. Valgono come il resto del doc
   misura circa 47 / 53), immagini della sezione 03 alte 172px (il wireframe dice 160).
 - **D12 — Hero.** Nel mockup il ruolo va a capo e si sovrappone al paragrafo, e la freccia del pulsante scende sotto
   il testo: sono errori di impaginazione del mockup e non si riproducono.
+- **D12b — Altri punti in cui vince il documento sul mockup** (emersi costruendo le sezioni):
+  - paragrafi mai sotto 15px: le descrizioni delle tappe (04) sono a 15px, il mockup le ha a 14px;
+  - numeri delle tappe (04) nel ruolo Meta, 13px (il mockup li ha a circa 11px);
+  - misura massima 52ch: il sottotitolo della 04 va a capo prima che nel mockup (lì la riga supera i 52ch);
+  - margine interno di 72px anche per il contatore della sezione 02 (il mockup lo mette a 56px);
+  - immagine della riga specchiata (03) larga come le altre, 56% (nel mockup è 20px più stretta);
+  - titolo della sezione 06 appoggiato al margine destro di 90px ("allineato a destra"); nel mockup finisce circa
+    80px prima.
 
 ### Tecnica
 

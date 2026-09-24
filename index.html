@@ -30,8 +30,276 @@
 </head>
 <body>
 
+  <!-- Primo elemento raggiungibile col Tab: salta la barra e va al contenuto -->
+  <a class="skip-link" href="#contenuto">Vai al contenuto</a>
+
+  <!-- ===================================================================
+       BARRA — due voci, fissa in alto
+       =================================================================== -->
+  <header class="site-header" role="banner">
+    <div class="wrap site-header__inner">
+      <a class="site-header__name" href="#inizio">Aurora Ponti</a>
+      <nav aria-label="Principale">
+        <a class="site-header__link" href="#contatto">Contatti</a>
+      </nav>
+    </div>
+  </header>
+
   <main id="contenuto">
-    <!-- Le sette sezioni arrivano al punto 2 -->
+
+    <!-- =================================================================
+         01 — HERO
+         ================================================================= -->
+    <section class="section hero" id="inizio" aria-labelledby="hero-titolo">
+
+      <!-- Linee di sfondo: decorative, escluse dai lettori di schermo -->
+      <svg class="hero__lines" aria-hidden="true" focusable="false" viewBox="0 0 1440 900" preserveAspectRatio="none">
+        <path class="hero__line hero__line--1" d="M0 629C13.3 626.6 53.3 617.8 80 614.5C106.7 611.2 133.3 609.8 160 609.5C186.7 609.2 213.3 610.5 240 612.5C266.7 614.5 293.3 617.8 320 621.5C346.7 625.2 373.3 630.2 400 634.5C426.7 638.8 453.3 643.8 480 647.5C506.7 651.2 533.3 654.5 560 656.5C586.7 658.5 613.3 659.8 640 659.5C666.7 659.2 693.3 657.8 720 654.5C746.7 651.2 773.3 645.8 800 639.5C826.7 633.2 853.3 625.3 880 616.5C906.7 607.7 933.3 596.2 960 586.5C986.7 576.8 1013.3 567.2 1040 558C1066.7 548.8 1093.3 539.3 1120 531C1146.7 522.7 1173.3 514.3 1200 508C1226.7 501.7 1253.3 495.6 1280 493C1306.7 490.4 1333.3 489.8 1360 492.5C1386.7 495.2 1426.7 506.2 1440 509"/>
+        <path class="hero__line hero__line--2" d="M0 707.5C13.3 705.7 53.3 699 80 696.5C106.7 694 133.3 692.9 160 692.5C186.7 692.1 213.3 692.7 240 694C266.7 695.3 293.3 697.8 320 700.5C346.7 703.2 373.3 706.8 400 710.5C426.7 714.2 453.3 718.8 480 722.5C506.7 726.2 533.3 730 560 732.5C586.7 735 613.3 736.8 640 737.5C666.7 738.2 693.3 738.2 720 736.5C746.7 734.8 773.3 731.8 800 727.5C826.7 723.2 853.3 717.5 880 710.5C906.7 703.5 933.3 694.4 960 685.5C986.7 676.6 1013.3 666.2 1040 657C1066.7 647.8 1093.3 638.7 1120 630C1146.7 621.3 1173.3 612.8 1200 605C1226.7 597.2 1253.3 589.2 1280 583C1306.7 576.8 1333.3 568.8 1360 567.5C1386.7 566.2 1426.7 573.8 1440 575"/>
+        <path class="hero__line hero__line--3" d="M0 772C13.3 770.6 53.3 765.4 80 763.5C106.7 761.6 133.3 760.8 160 760.5C186.7 760.2 213.3 760.4 240 761.5C266.7 762.6 293.3 764.8 320 767C346.7 769.2 373.3 772.1 400 775C426.7 777.9 453.3 781.4 480 784.5C506.7 787.6 533.3 790.9 560 793.5C586.7 796.1 613.3 798.8 640 800C666.7 801.2 693.3 801.2 720 800.5C746.7 799.8 773.3 798.5 800 795.5C826.7 792.5 853.3 788 880 782.5C906.7 777 933.3 770.3 960 762.5C986.7 754.7 1013.3 744.7 1040 735.5C1066.7 726.3 1093.3 716.7 1120 707.5C1146.7 698.3 1173.3 688.4 1200 680.5C1226.7 672.6 1253.3 666.7 1280 660C1306.7 653.3 1333.3 643.2 1360 640.5C1386.7 637.8 1426.7 643 1440 643.5"/>
+      </svg>
+
+      <div class="wrap hero__inner">
+        <div class="hero__text">
+          <h1 class="t-hero hero__name" id="hero-titolo">
+            <span class="hero__name-line">Aurora</span>
+            <span class="hero__name-line">Ponti</span>
+          </h1>
+          <p class="hero__role">Marketing Manager Junior — Digital Strategy &amp; Automation</p>
+          <p class="t-body hero__summary">Strategia, marketing automation, CRM, content e coordinamento di progetti digitali.</p>
+          <a class="btn-pill" href="#in-evidenza">
+            Guarda i progetti
+            <svg class="icon" aria-hidden="true" focusable="false" viewBox="0 0 16 16"><path d="M8 2.5v11M3.5 9 8 13.5 12.5 9"/></svg>
+          </a>
+        </div>
+
+        <!-- SEGNAPOSTO: foto ritratto 320×420 -->
+        <div class="placeholder hero__photo">320 × 420 <br>Foto ritratto <br>da fornire</div>
+      </div>
+    </section>
+
+
+    <!-- =================================================================
+         02 — PROGETTO IN EVIDENZA
+         ================================================================= -->
+    <section class="section featured" id="in-evidenza" aria-labelledby="featured-titolo">
+      <h2 class="visually-hidden" id="featured-titolo">Progetto in evidenza</h2>
+
+      <div class="featured__media">
+        <!-- SEGNAPOSTO: foto del caso, 52% della larghezza × altezza della sezione -->
+        <div class="placeholder placeholder--dark featured__photo">52% × altezza sezione (750 × 900 a 1440px) <br>Foto caso FLU / Uniting <br>da fornire</div>
+
+        <div class="featured__nav">
+          <p class="featured__counter">
+            <span class="featured__current">01</span>
+            <span class="featured__total">/ 01</span>
+          </p>
+          <!-- Frecce: nascoste finché c'è un solo caso (SPECIFICHE.md, sezione 02) -->
+          <div class="featured__arrows" hidden>
+            <button class="btn-round" type="button" aria-label="Caso precedente">
+              <svg class="icon" aria-hidden="true" focusable="false" viewBox="0 0 16 16"><path d="M13.5 8h-11M7 3.5 2.5 8 7 12.5"/></svg>
+            </button>
+            <button class="btn-round btn-round--filled" type="button" aria-label="Caso successivo">
+              <svg class="icon" aria-hidden="true" focusable="false" viewBox="0 0 16 16"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="featured__content">
+        <article class="case" data-destinazione="caso">
+          <p class="t-meta case__meta">Nutraceutico · Lead generation B2B · 2024</p>
+          <h3 class="t-title-xl case__name">FLU / <em>Uniting</em></h3>
+          <p class="t-body case__desc">Strategia di lead generation su un database di 154 contatti e 85 aziende: segmentazione per settore, nurturing a valore — tre comunicazioni utili ogni una commerciale — e qualifica dei lead prima del passaggio alle vendite.</p>
+
+          <!-- SEGNAPOSTO: cifre in attesa di conferma che si possano pubblicare -->
+          <ul class="stats" role="list">
+            <li class="stat"><span class="t-stat stat__value">€XXK</span> <span class="stat__label">convertiti</span></li>
+            <li class="stat"><span class="t-stat stat__value">XX</span> <span class="stat__label">warm lead</span></li>
+            <li class="stat"><span class="t-stat stat__value">X</span> <span class="stat__label">brief gestiti</span></li>
+          </ul>
+
+          <a class="link-arrow" href="progetti/flu-uniting.html">
+            <span class="link-arrow__text">Vedi il caso completo</span>
+            <svg class="icon" aria-hidden="true" focusable="false" viewBox="0 0 16 16"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg>
+          </a>
+        </article>
+      </div>
+    </section>
+
+
+    <!-- =================================================================
+         03 — ALTRI PROGETTI
+         data-destinazione: caso | link | nessuno (SPECIFICHE.md,
+         "Dove portano i progetti"). Per ora nessuno: righe non cliccabili.
+         ================================================================= -->
+    <section class="section works" id="lavori" aria-labelledby="works-titolo">
+      <div class="wrap">
+        <h2 class="t-section works__title" id="works-titolo">Altri <em>lavori</em></h2>
+
+        <ol class="works__list" role="list">
+          <li class="work" data-destinazione="nessuno">
+            <div class="work__text">
+              <span class="work__num" aria-hidden="true">01</span>
+              <p class="t-meta work__meta">Ristorazione · 2023</p>
+              <h3 class="t-project work__name">Pizzerie <em>Sara</em></h3>
+              <p class="t-body work__desc">Rebrand completo per la catena varesina: logo, tone of voice, sito, piano social e materiale grafico coordinato.</p>
+            </div>
+            <!-- SEGNAPOSTO: immagine progetto -->
+            <div class="placeholder work__image">685 × 172 — Immagine progetto da fornire</div>
+          </li>
+
+          <li class="work work--mirror" data-destinazione="nessuno">
+            <div class="work__text">
+              <span class="work__num" aria-hidden="true">02</span>
+              <p class="t-meta work__meta">Sviluppo web · 2023</p>
+              <h3 class="t-project work__name">Cannavacciuolo <em>Group</em></h3>
+              <p class="t-body work__desc">Coordinamento dello sviluppo web e del roll-out digitale, dal brief al rilascio.</p>
+            </div>
+            <div class="placeholder work__image">685 × 172 — Immagine progetto da fornire</div>
+          </li>
+
+          <li class="work" data-destinazione="nessuno">
+            <div class="work__text">
+              <span class="work__num" aria-hidden="true">03</span>
+              <p class="t-meta work__meta">Food service · 2024</p>
+              <h3 class="t-project work__name">The Nice <em>Kitchen</em></h3>
+              <p class="t-body work__desc">Marketing automation e progettazione del percorso cliente, dalla prima interazione alla fidelizzazione.</p>
+            </div>
+            <div class="placeholder work__image">685 × 172 — Immagine progetto da fornire</div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+
+    <!-- =================================================================
+         04 — COME LAVORO
+         ================================================================= -->
+    <section class="section method" id="metodo" aria-labelledby="method-titolo">
+      <div class="wrap">
+        <h2 class="t-section method__title" id="method-titolo">Il metodo dietro <em>quei numeri</em></h2>
+        <p class="t-body method__intro">Non parto da un'attività da eseguire, ma da un obiettivo di marketing: lo traduco in un percorso e coordino le persone necessarie per realizzarlo.</p>
+
+        <ol class="process" role="list">
+          <li class="process__step">
+            <span class="process__dot" aria-hidden="true"></span>
+            <p class="t-meta process__num" aria-hidden="true">01</p>
+            <h3 class="t-step process__name">Lead magnet</h3>
+            <p class="t-body process__desc">Contenuto di valore che fa alzare la mano alle persone giuste.</p>
+          </li>
+          <li class="process__step">
+            <span class="process__dot" aria-hidden="true"></span>
+            <p class="t-meta process__num" aria-hidden="true">02</p>
+            <h3 class="t-step process__name">Segmentazione</h3>
+            <p class="t-body process__desc">Il database diviso per settore e priorità, non trattato come un blocco unico.</p>
+          </li>
+          <li class="process__step">
+            <span class="process__dot" aria-hidden="true"></span>
+            <p class="t-meta process__num" aria-hidden="true">03</p>
+            <h3 class="t-step process__name">Nurturing</h3>
+            <p class="t-body process__desc">Sequenze automatizzate su GoHighLevel, con un ritmo che dà prima di chiedere.</p>
+          </li>
+          <li class="process__step">
+            <span class="process__dot" aria-hidden="true"></span>
+            <p class="t-meta process__num" aria-hidden="true">04</p>
+            <h3 class="t-step process__name">Conversione</h3>
+            <p class="t-body process__desc">Lead qualificati passati alle vendite, con i dati per misurare cosa ha funzionato.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+
+    <!-- =================================================================
+         05 — CHI SONO
+         ================================================================= -->
+    <section class="section about" id="chi-sono" aria-labelledby="about-titolo">
+      <h2 class="visually-hidden" id="about-titolo">Chi sono</h2>
+      <div class="wrap">
+        <div class="about__blocks">
+          <h3 class="t-lead about__lead">Nata tra <br>strategia e <br><em>operatività</em></h3>
+          <p class="t-body about__col">Comunicazione e società a Milano, poi tre anni sul campo tra marketing automation, CRM e coordinamento clienti. Non le piace scegliere tra pensare e fare.</p>
+          <p class="t-body about__col">Curiosa, veloce nell'apprendere, poco interessata alle etichette — social media manager o advertising specialist non bastano a descriverla.</p>
+        </div>
+
+        <div class="about__rule" aria-hidden="true"></div>
+
+        <p class="t-quote about__quote">Mettere insieme dati e <em>creatività</em></p>
+      </div>
+    </section>
+
+
+    <!-- =================================================================
+         06 — PERCORSO
+         ================================================================= -->
+    <section class="section path" id="percorso" aria-labelledby="path-titolo">
+      <div class="wrap">
+        <h2 class="path__title" id="path-titolo">
+          <svg class="path__arrow" aria-hidden="true" focusable="false" viewBox="0 0 18 18"><path d="M1.5 16.5 16.5 1.5M4.5 1.5h12v12"/></svg>
+          <span class="t-title-sm">Il mio <br><em>percorso</em></span>
+        </h2>
+
+        <ol class="timeline" role="list">
+          <li class="timeline__row">
+            <p class="t-timeline timeline__role">Marketing Manager</p>
+            <p class="t-detail timeline__org">Intraweb srl</p>
+            <p class="t-detail timeline__years num"><time datetime="2023">2023</time> — presente</p>
+          </li>
+          <li class="timeline__row">
+            <p class="t-timeline timeline__role">Apprendista Comunicazione Aziendale</p>
+            <p class="t-detail timeline__org">Convy School</p>
+            <p class="t-detail timeline__years num"><time datetime="2022">2022</time></p>
+          </li>
+          <li class="timeline__row">
+            <p class="t-timeline timeline__role">Stage marketing</p>
+            <p class="t-detail timeline__org">Boggi Milano</p>
+            <p class="t-detail timeline__years num"><time datetime="2021">2021</time></p>
+          </li>
+          <li class="timeline__row">
+            <p class="t-timeline timeline__role">Stage marketing</p>
+            <p class="t-detail timeline__org">Boggi Milano</p>
+            <p class="t-detail timeline__years num"><time datetime="2019">2019</time></p>
+          </li>
+          <li class="timeline__row">
+            <p class="t-timeline timeline__role">Comunicazione e Società</p>
+            <p class="t-detail timeline__org">Università Statale di Milano</p>
+            <p class="t-detail timeline__years num"><time datetime="2017">2017</time> — <time datetime="2020">2020</time></p>
+          </li>
+          <li class="timeline__row">
+            <p class="t-timeline timeline__role">Liceo Classico</p>
+            <p class="t-detail timeline__org">Bartolomeo Zucchi, Monza</p>
+            <p class="t-detail timeline__years num"><time datetime="2012">2012</time> — <time datetime="2017">2017</time></p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+
+    <!-- =================================================================
+         07 — CONTATTO
+         ================================================================= -->
+    <section class="section contact" id="contatto" aria-labelledby="contact-titolo">
+
+      <!-- Scritta gigante: decorativa, esclusa dai lettori di schermo -->
+      <div class="contact__giant-wrap" aria-hidden="true">
+        <p class="wrap contact__giant">CONTATTO</p>
+      </div>
+
+      <div class="wrap contact__inner">
+        <h2 class="t-title-xl contact__title" id="contact-titolo">Parliamone<span class="contact__dot">.</span></h2>
+        <p class="contact__email-wrap"><a class="contact__email" href="mailto:aurora.ponti@live.it">aurora.ponti@live.it</a></p>
+        <ul class="contact__links" role="list">
+          <li><a class="contact__link" href="https://www.linkedin.com/in/ponti-aurora" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a class="contact__link" href="mailto:aurora.ponti@live.it">Email</a></li>
+        </ul>
+      </div>
+
+      <footer class="wrap contact__footer">
+        <p>Aurora Ponti — Milano, 2026</p>
+      </footer>
+    </section>
+
   </main>
 
 </body>

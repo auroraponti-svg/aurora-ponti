@@ -76,9 +76,10 @@ a {
   color: inherit;
 }
 
-/* Le liste con role="list" perdono i pallini ma restano liste per i lettori di schermo */
-ul[role="list"],
-ol[role="list"] {
+/* Le liste con role="list" perdono i pallini ma restano liste per i lettori
+   di schermo. :where() azzera la priorità della regola, così qualsiasi
+   classe di style.css può ridare un padding. */
+:where(ul[role="list"], ol[role="list"]) {
   list-style: none;
   padding: 0;
 }
