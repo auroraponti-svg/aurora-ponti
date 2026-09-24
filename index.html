@@ -27,6 +27,8 @@
   <link rel="stylesheet" href="assets/css/reset.css">
   <link rel="stylesheet" href="assets/css/tokens.css">
   <link rel="stylesheet" href="assets/css/style.css">
+
+  <script src="assets/js/main.js" defer></script>
 </head>
 <body>
 
@@ -87,7 +89,7 @@
 
       <div class="featured__media">
         <!-- SEGNAPOSTO: foto del caso, 52% della larghezza × altezza della sezione -->
-        <div class="placeholder placeholder--dark featured__photo">52% × altezza sezione (750 × 900 a 1440px) <br>Foto caso FLU / Uniting <br>da fornire</div>
+        <div class="placeholder placeholder--dark featured__photo">Foto caso FLU / Uniting da fornire <br>Desktop: 750 × 900 (52% × altezza sezione) <br>Mobile: tutta larghezza × 55% dell'altezza</div>
 
         <div class="featured__nav">
           <p class="featured__counter">
@@ -119,10 +121,10 @@
             <li class="stat"><span class="t-stat stat__value">X</span> <span class="stat__label">brief gestiti</span></li>
           </ul>
 
-          <a class="link-arrow" href="progetti/flu-uniting.html">
+          <button class="link-arrow" type="button" commandfor="approfondimento-flu-uniting" command="show-modal">
             <span class="link-arrow__text">Vedi il caso completo</span>
             <svg class="icon" aria-hidden="true" focusable="false" viewBox="0 0 16 16"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg>
-          </a>
+          </button>
         </article>
       </div>
     </section>
@@ -130,41 +132,60 @@
 
     <!-- =================================================================
          03 — ALTRI PROGETTI
-         data-destinazione: caso | link | nessuno (SPECIFICHE.md,
-         "Dove portano i progetti"). Per ora nessuno: righe non cliccabili.
+         Ogni riga ha il pulsante "Vedi di più", che apre il popup di
+         approfondimento (i <dialog> in fondo alla pagina). L'area del
+         pulsante copre tutta la riga: si può cliccare ovunque.
          ================================================================= -->
     <section class="section works" id="lavori" aria-labelledby="works-titolo">
       <div class="wrap">
         <h2 class="t-section works__title" id="works-titolo">Altri <em>lavori</em></h2>
 
         <ol class="works__list" role="list">
-          <li class="work" data-destinazione="nessuno">
+          <li class="work" data-destinazione="caso">
             <div class="work__text">
               <span class="work__num" aria-hidden="true">01</span>
-              <p class="t-meta work__meta">Ristorazione · 2023</p>
-              <h3 class="t-project work__name">Pizzerie <em>Sara</em></h3>
-              <p class="t-body work__desc">Rebrand completo per la catena varesina: logo, tone of voice, sito, piano social e materiale grafico coordinato.</p>
+              <div class="work__body">
+                <p class="t-meta work__meta">Ristorazione · 2023</p>
+                <h3 class="t-project work__name">Pizzerie <em>Sara</em></h3>
+                <p class="t-body work__desc">Rebrand completo per la catena varesina: logo, tone of voice, sito, piano social e materiale grafico coordinato.</p>
+                <button class="link-arrow work__more" type="button" commandfor="approfondimento-pizzerie-sara" command="show-modal">
+                  <span class="link-arrow__text">Vedi di più</span>
+                  <svg class="icon" aria-hidden="true" focusable="false" viewBox="0 0 16 16"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg>
+                </button>
+              </div>
             </div>
             <!-- SEGNAPOSTO: immagine progetto -->
             <div class="placeholder work__image">685 × 172 — Immagine progetto da fornire</div>
           </li>
 
-          <li class="work work--mirror" data-destinazione="nessuno">
+          <li class="work work--mirror" data-destinazione="caso">
             <div class="work__text">
               <span class="work__num" aria-hidden="true">02</span>
-              <p class="t-meta work__meta">Sviluppo web · 2023</p>
-              <h3 class="t-project work__name">Cannavacciuolo <em>Group</em></h3>
-              <p class="t-body work__desc">Coordinamento dello sviluppo web e del roll-out digitale, dal brief al rilascio.</p>
+              <div class="work__body">
+                <p class="t-meta work__meta">Sviluppo web · 2023</p>
+                <h3 class="t-project work__name">Cannavacciuolo <em>Group</em></h3>
+                <p class="t-body work__desc">Coordinamento dello sviluppo web e del roll-out digitale, dal brief al rilascio.</p>
+                <button class="link-arrow work__more" type="button" commandfor="approfondimento-cannavacciuolo-group" command="show-modal">
+                  <span class="link-arrow__text">Vedi di più</span>
+                  <svg class="icon" aria-hidden="true" focusable="false" viewBox="0 0 16 16"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg>
+                </button>
+              </div>
             </div>
             <div class="placeholder work__image">685 × 172 — Immagine progetto da fornire</div>
           </li>
 
-          <li class="work" data-destinazione="nessuno">
+          <li class="work" data-destinazione="caso">
             <div class="work__text">
               <span class="work__num" aria-hidden="true">03</span>
-              <p class="t-meta work__meta">Food service · 2024</p>
-              <h3 class="t-project work__name">The Nice <em>Kitchen</em></h3>
-              <p class="t-body work__desc">Marketing automation e progettazione del percorso cliente, dalla prima interazione alla fidelizzazione.</p>
+              <div class="work__body">
+                <p class="t-meta work__meta">Food service · 2024</p>
+                <h3 class="t-project work__name">The Nice <em>Kitchen</em></h3>
+                <p class="t-body work__desc">Marketing automation e progettazione del percorso cliente, dalla prima interazione alla fidelizzazione.</p>
+                <button class="link-arrow work__more" type="button" commandfor="approfondimento-the-nice-kitchen" command="show-modal">
+                  <span class="link-arrow__text">Vedi di più</span>
+                  <svg class="icon" aria-hidden="true" focusable="false" viewBox="0 0 16 16"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg>
+                </button>
+              </div>
             </div>
             <div class="placeholder work__image">685 × 172 — Immagine progetto da fornire</div>
           </li>
@@ -301,6 +322,136 @@
     </section>
 
   </main>
+
+  <!-- =====================================================================
+       POPUP DI APPROFONDIMENTO — uno per progetto
+       Si aprono dai pulsanti "Vedi di più" (commandfor = id del popup).
+       Contenuti da fornire: sostituire i LOREM.
+       ===================================================================== -->
+
+  <dialog class="modal" id="approfondimento-flu-uniting" aria-labelledby="approfondimento-flu-uniting-titolo" closedby="any">
+    <div class="modal__bar">
+      <button class="btn-round modal__close" type="button" commandfor="approfondimento-flu-uniting" command="close" aria-label="Chiudi">
+        <svg class="icon" aria-hidden="true" focusable="false" viewBox="0 0 16 16"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg>
+      </button>
+    </div>
+    <div class="modal__scroll">
+      <header class="modal__head">
+        <p class="t-meta modal__meta">Nutraceutico · Lead generation B2B · 2024</p>
+        <h2 class="t-title-xl modal__title" id="approfondimento-flu-uniting-titolo">FLU / <em>Uniting</em></h2>
+        <p class="t-body modal__intro">LOREM — DA FORNIRE</p>
+      </header>
+      <!-- SEGNAPOSTO: immagine del progetto -->
+      <div class="placeholder modal__image">Immagine progetto da fornire <br>Tutta larghezza × 400 (mobile × 240)</div>
+      <div class="modal__body">
+        <section class="modal__block">
+          <h3 class="t-meta modal__label">Il contesto</h3>
+          <p class="t-body">LOREM — DA FORNIRE</p>
+        </section>
+        <section class="modal__block">
+          <h3 class="t-meta modal__label">Cosa ho fatto</h3>
+          <p class="t-body">LOREM — DA FORNIRE</p>
+        </section>
+        <section class="modal__block">
+          <h3 class="t-meta modal__label">Risultati</h3>
+          <p class="t-body">LOREM — DA FORNIRE</p>
+        </section>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="modal" id="approfondimento-pizzerie-sara" aria-labelledby="approfondimento-pizzerie-sara-titolo" closedby="any">
+    <div class="modal__bar">
+      <button class="btn-round modal__close" type="button" commandfor="approfondimento-pizzerie-sara" command="close" aria-label="Chiudi">
+        <svg class="icon" aria-hidden="true" focusable="false" viewBox="0 0 16 16"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg>
+      </button>
+    </div>
+    <div class="modal__scroll">
+      <header class="modal__head">
+        <p class="t-meta modal__meta">Ristorazione · 2023</p>
+        <h2 class="t-title-xl modal__title" id="approfondimento-pizzerie-sara-titolo">Pizzerie <em>Sara</em></h2>
+        <p class="t-body modal__intro">LOREM — DA FORNIRE</p>
+      </header>
+      <!-- SEGNAPOSTO: immagine del progetto -->
+      <div class="placeholder modal__image">Immagine progetto da fornire <br>Tutta larghezza × 400 (mobile × 240)</div>
+      <div class="modal__body">
+        <section class="modal__block">
+          <h3 class="t-meta modal__label">Il contesto</h3>
+          <p class="t-body">LOREM — DA FORNIRE</p>
+        </section>
+        <section class="modal__block">
+          <h3 class="t-meta modal__label">Cosa ho fatto</h3>
+          <p class="t-body">LOREM — DA FORNIRE</p>
+        </section>
+        <section class="modal__block">
+          <h3 class="t-meta modal__label">Risultati</h3>
+          <p class="t-body">LOREM — DA FORNIRE</p>
+        </section>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="modal" id="approfondimento-cannavacciuolo-group" aria-labelledby="approfondimento-cannavacciuolo-group-titolo" closedby="any">
+    <div class="modal__bar">
+      <button class="btn-round modal__close" type="button" commandfor="approfondimento-cannavacciuolo-group" command="close" aria-label="Chiudi">
+        <svg class="icon" aria-hidden="true" focusable="false" viewBox="0 0 16 16"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg>
+      </button>
+    </div>
+    <div class="modal__scroll">
+      <header class="modal__head">
+        <p class="t-meta modal__meta">Sviluppo web · 2023</p>
+        <h2 class="t-title-xl modal__title" id="approfondimento-cannavacciuolo-group-titolo">Cannavacciuolo <em>Group</em></h2>
+        <p class="t-body modal__intro">LOREM — DA FORNIRE</p>
+      </header>
+      <!-- SEGNAPOSTO: immagine del progetto -->
+      <div class="placeholder modal__image">Immagine progetto da fornire <br>Tutta larghezza × 400 (mobile × 240)</div>
+      <div class="modal__body">
+        <section class="modal__block">
+          <h3 class="t-meta modal__label">Il contesto</h3>
+          <p class="t-body">LOREM — DA FORNIRE</p>
+        </section>
+        <section class="modal__block">
+          <h3 class="t-meta modal__label">Cosa ho fatto</h3>
+          <p class="t-body">LOREM — DA FORNIRE</p>
+        </section>
+        <section class="modal__block">
+          <h3 class="t-meta modal__label">Risultati</h3>
+          <p class="t-body">LOREM — DA FORNIRE</p>
+        </section>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="modal" id="approfondimento-the-nice-kitchen" aria-labelledby="approfondimento-the-nice-kitchen-titolo" closedby="any">
+    <div class="modal__bar">
+      <button class="btn-round modal__close" type="button" commandfor="approfondimento-the-nice-kitchen" command="close" aria-label="Chiudi">
+        <svg class="icon" aria-hidden="true" focusable="false" viewBox="0 0 16 16"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg>
+      </button>
+    </div>
+    <div class="modal__scroll">
+      <header class="modal__head">
+        <p class="t-meta modal__meta">Food service · 2024</p>
+        <h2 class="t-title-xl modal__title" id="approfondimento-the-nice-kitchen-titolo">The Nice <em>Kitchen</em></h2>
+        <p class="t-body modal__intro">LOREM — DA FORNIRE</p>
+      </header>
+      <!-- SEGNAPOSTO: immagine del progetto -->
+      <div class="placeholder modal__image">Immagine progetto da fornire <br>Tutta larghezza × 400 (mobile × 240)</div>
+      <div class="modal__body">
+        <section class="modal__block">
+          <h3 class="t-meta modal__label">Il contesto</h3>
+          <p class="t-body">LOREM — DA FORNIRE</p>
+        </section>
+        <section class="modal__block">
+          <h3 class="t-meta modal__label">Cosa ho fatto</h3>
+          <p class="t-body">LOREM — DA FORNIRE</p>
+        </section>
+        <section class="modal__block">
+          <h3 class="t-meta modal__label">Risultati</h3>
+          <p class="t-body">LOREM — DA FORNIRE</p>
+        </section>
+      </div>
+    </div>
+  </dialog>
 
 </body>
 </html>

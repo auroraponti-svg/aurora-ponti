@@ -335,6 +335,7 @@ em {
   display: inline-flex;
   align-items: center;
   gap: var(--space-4);
+  min-height: var(--tap-min); /* area toccabile: 44px */
   font-weight: 500;
   font-size: var(--fs-link);
   line-height: 1.4;
@@ -370,6 +371,109 @@ em {
 .placeholder--dark {
   background: none;
   color: var(--blue-soft);
+}
+
+
+/* ---------- Popup di approfondimento ----------
+   Grande, centrato, con la pagina sotto oscurata. Barra in alto con la X
+   sempre visibile; il contenuto scorre sotto. Su mobile a tutto schermo. */
+
+.modal {
+  width: min(100% - 2 * var(--space-10), 1120px);
+  max-width: none;
+  max-height: calc(100svh - 2 * var(--space-10));
+  margin: auto;
+  padding: 0;
+  border: 0;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+/* display solo quando è aperto: un <dialog> chiuso deve restare nascosto */
+.modal[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal::backdrop {
+  background: rgb(15 26 48 / 0.6); /* --ink al 60% */
+}
+
+/* Con un popup aperto la pagina sotto non scorre */
+html:has(.modal[open]) {
+  overflow: hidden;
+}
+
+.modal__bar {
+  display: flex;
+  justify-content: flex-end;
+  padding: var(--space-4) var(--space-4) 0;
+}
+
+.modal__close {
+  border-color: var(--line);
+  color: var(--ink);
+}
+
+.modal__scroll {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0 var(--margin-x-panel) var(--space-18);
+}
+
+.modal__meta {
+  color: var(--blue);
+}
+
+.modal__title {
+  margin-top: var(--space-4);
+}
+
+.modal__intro {
+  margin-top: var(--space-5);
+}
+
+.modal__image {
+  height: 400px;
+  margin-top: var(--space-10);
+}
+
+/* Blocchi: etichetta a sinistra, testo a destra */
+.modal__body {
+  margin-top: var(--space-10);
+}
+
+.modal__block {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+  column-gap: var(--space-9);
+  padding-block: var(--space-6);
+  border-top: 1px solid var(--line-soft);
+}
+
+.modal__label {
+  color: var(--ink-3);
+}
+
+@media (width < 768px) {
+  .modal {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+  }
+
+  .modal__scroll {
+    padding: 0 var(--margin-x) var(--space-12);
+  }
+
+  .modal__image {
+    height: 240px;
+  }
+
+  .modal__block {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--space-2);
+  }
 }
 
 
@@ -444,12 +548,39 @@ em {
   margin-top: var(--space-10);
 }
 
-/* Foto: 320×420, contrappeso verticale sul margine destro */
+/* Foto: 320×420, contrappeso verticale sul margine destro.
+   Sotto i 1067px si stringe col 30% della finestra, sempre in 3:4. */
 .hero__photo {
   flex: none;
-  width: 320px;
-  height: 420px;
+  width: min(320px, 30vw);
+  aspect-ratio: 320 / 420;
   border: 1px solid var(--line);
+}
+
+/* Sotto i 768px: foto sotto il testo, a tutta larghezza, più bassa (4:3).
+   Le linee tengono le proporzioni e si centrano, invece di schiacciarsi. */
+@media (width < 768px) {
+  .hero__inner {
+    flex-direction: column;
+    align-items: stretch;
+    padding-block: calc(var(--header-h) + var(--space-8)) var(--space-12);
+  }
+
+  .hero__photo {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+  }
+
+  .hero__lines {
+    left: 50%;
+    width: auto;
+    aspect-ratio: 1440 / 900;
+    translate: -50% 0;
+  }
+
+  .hero .btn-pill {
+    margin-top: var(--space-8);
+  }
 }
 
 
@@ -512,12 +643,12 @@ em {
   gap: var(--space-3);
 }
 
-/* Pannello contenuto: blocco centrato nello spazio sotto i primi 208px,
+/* Pannello contenuto: blocco centrato nello spazio sotto i primi 220px,
    come nel mockup, dove il contenuto sta un po' sotto la metà */
 .featured__content {
   display: flex;
   align-items: center;
-  padding: 208px var(--margin-x-panel) var(--space-12);
+  padding: 220px var(--margin-x-panel) var(--space-12);
 }
 
 .case {
@@ -559,12 +690,45 @@ em {
 }
 
 .case .link-arrow {
-  margin-top: var(--space-10);
+  margin-top: var(--space-7); /* 40px visivi: il pulsante è alto 44 */
   color: var(--bg);
 }
 
 .case .link-arrow__text {
   text-decoration-color: var(--blue-soft);
+}
+
+/* Sotto i 1024px: si impila, foto sopra (55% dell'altezza) e testo sotto.
+   Il testo torna sul margine della pagina, come nelle altre sezioni. */
+@media (width < 1024px) {
+  .featured {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .featured__media {
+    min-height: 55vh;
+    min-height: 55svh;
+  }
+
+  .featured__nav {
+    right: var(--margin-x);
+    bottom: var(--space-8);
+    left: var(--margin-x);
+  }
+
+  .featured__content {
+    padding: var(--space-16) var(--margin-x) var(--space-20);
+  }
+}
+
+/* Le statistiche restano in riga; se non entrano vanno a capo
+   (due sopra e una sotto), mai in colonna */
+@media (width < 768px) {
+  .stats {
+    flex-wrap: wrap;
+    column-gap: var(--space-8);
+    row-gap: var(--space-6);
+  }
 }
 
 
@@ -622,18 +786,24 @@ em {
   margin-left: auto;
 }
 
-/* Il testo crea un piano proprio: il numero sta dietro, non sotto la pagina */
+/* Blocco testo: il numero e il testo occupano la stessa cella della
+   griglia, uno sopra l'altro. Il blocco crea un piano proprio
+   (isolation), così il numero sta dietro al testo ma non sotto la pagina. */
 .work__text {
-  position: relative;
+  display: grid;
   isolation: isolate;
+}
+
+.work__text > * {
+  grid-area: 1 / 1;
 }
 
 /* Numero grande di sfondo: decorativo, sborda oltre il margine */
 .work__num {
-  position: absolute;
-  top: -50px;
-  left: -14px;
   z-index: -1;
+  align-self: start;
+  justify-self: start;
+  margin: -50px 0 0 -14px;
   font-size: 120px;
   line-height: 1;
   color: var(--bg-alt);
@@ -642,8 +812,8 @@ em {
 }
 
 .work--mirror .work__num {
-  right: -19px;
-  left: auto;
+  justify-self: end;
+  margin: -50px -19px 0 0;
 }
 
 .work__meta {
@@ -660,8 +830,67 @@ em {
   max-width: 44ch;
 }
 
+.work__more {
+  margin-top: var(--space-1); /* 16px visivi: il pulsante è alto 44 */
+  color: var(--blue);
+}
+
+/* L'area cliccabile del pulsante si allarga a tutta la riga:
+   si apre il popup cliccando ovunque, anche sull'immagine */
+.work {
+  position: relative;
+}
+
+.work__more::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
 .work__image {
   height: var(--row-image-h);
+}
+
+/* Sotto i 1024px: una colonna, immagine sopra e testo sotto.
+   L'alternanza sparisce e tutto torna allineato a sinistra. */
+@media (width < 1024px) {
+  .work,
+  .work--mirror {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--space-6);
+    padding-block: var(--space-8);
+  }
+
+  .work__image,
+  .work--mirror .work__image {
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+  .work__text,
+  .work--mirror .work__text {
+    grid-row: 2;
+    grid-column: 1;
+    text-align: left;
+  }
+
+  .work--mirror .work__desc {
+    margin-left: 0;
+  }
+
+  /* Numeri ridotti a 64px e allineati al testo, senza sbordare */
+  .work__num,
+  .work--mirror .work__num {
+    justify-self: start;
+    margin: -24px 0 0;
+    font-size: 64px;
+  }
+}
+
+@media (width < 768px) {
+  .works {
+    padding-block: var(--space-24) var(--space-16);
+  }
 }
 
 
@@ -741,6 +970,64 @@ em {
   font-size: var(--fs-body-sm);
 }
 
+/* Sotto i 1024px la linea ruota in verticale: scende lungo il bordo
+   sinistro, le tappe si impilano con i pallini sulla linea. La linea è
+   fatta a tratti, uno per tappa, dal proprio pallino al successivo:
+   così resta attaccata ai pallini qualunque sia la lunghezza dei testi. */
+@media (width < 1024px) {
+  .process {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--space-10);
+    margin-top: var(--space-16);
+  }
+
+  .process::before {
+    content: none;
+  }
+
+  .process__step {
+    position: relative;
+    padding-left: var(--space-12);
+  }
+
+  /* Tratto verticale: dal centro di questo pallino al centro del prossimo */
+  .process__step:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    top: 9px;
+    left: 8.5px;
+    width: 1px;
+    height: calc(100% + var(--space-10));
+    background: linear-gradient(180deg, var(--seg-from), var(--seg-to));
+  }
+
+  .process__step:nth-child(1) { --seg-from: var(--line);      --seg-to: #B6C4E3; }
+  .process__step:nth-child(2) { --seg-from: #B6C4E3;          --seg-to: #6F86C0; }
+  .process__step:nth-child(3) { --seg-from: #6F86C0;          --seg-to: var(--blue); }
+
+  .process__dot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+
+  .process__num {
+    margin-top: 0;
+    line-height: 18px; /* stessa altezza del pallino: numero e pallino allineati */
+  }
+
+  .process__desc {
+    max-width: var(--measure);
+  }
+}
+
+@media (width < 768px) {
+  .method {
+    padding-block: var(--space-24) var(--space-16);
+  }
+}
+
 
 /* -------------------------------------------------------------------------
    05 — CHI SONO
@@ -777,6 +1064,31 @@ em {
 
 .about__quote em {
   color: var(--blue);
+}
+
+/* Sotto i 1024px: una colonna, i tre blocchi si impilano. (La tabella
+   delle specifiche lo chiede sotto i 768; tra 768 e 1023 tre colonne
+   darebbero paragrafi di circa 20 caratteri, metà della misura minima.) */
+@media (width < 1024px) {
+  .about__blocks {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--space-5);
+  }
+
+  .about__col {
+    margin-top: 0;
+  }
+
+  .about__rule,
+  .about__quote {
+    margin-top: var(--space-12);
+  }
+}
+
+@media (width < 768px) {
+  .about {
+    padding-block: var(--space-24) var(--space-16);
+  }
 }
 
 
@@ -839,6 +1151,29 @@ em {
   text-align: right;
 }
 
+/* Sotto i 768px: due righe per voce. Ruolo sopra; azienda (a sinistra)
+   e anni (a destra) sotto, sulla stessa riga. La colonna centrale sparisce. */
+@media (width < 768px) {
+  .path {
+    padding-block: var(--space-24) var(--space-16);
+  }
+
+  .timeline {
+    margin-top: var(--space-8);
+  }
+
+  .timeline__row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: var(--space-4);
+    row-gap: var(--space-1);
+    padding-block: var(--space-5);
+  }
+
+  .timeline__role {
+    grid-column: 1 / -1;
+  }
+}
+
 
 /* -------------------------------------------------------------------------
    07 — CONTATTO
@@ -880,6 +1215,7 @@ em {
 .contact__inner {
   position: relative;
   flex: 1;
+  padding-top: var(--space-3); /* compensa i 44px dei link: il blocco resta al centro a occhio */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -892,10 +1228,13 @@ em {
 }
 
 .contact__email-wrap {
-  margin-top: var(--space-5);
+  margin-top: var(--space-3); /* 24px visivi: il link è alto 44 */
 }
 
 .contact__email {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min); /* area toccabile: 44px */
   font-size: var(--fs-email);
   color: var(--blue);
   text-decoration: underline;
@@ -907,7 +1246,7 @@ em {
 .contact__links {
   display: flex;
   align-items: center;
-  margin-top: var(--space-8);
+  margin-top: var(--space-3); /* 36px visivi: i link sono alti 44 */
   font-size: var(--fs-detail);
 }
 
@@ -924,6 +1263,9 @@ em {
 }
 
 .contact__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min); /* area toccabile: 44px */
   color: var(--ink-2);
   text-decoration: none;
 }
@@ -936,4 +1278,16 @@ em {
   left: 0;
   font-size: var(--fs-label);
   color: var(--ink-3);
+}
+
+/* Sotto i 768px la scritta è piccola quanto il piede: la alzo sopra di
+   lui invece di sovrapporli */
+@media (width < 768px) {
+  .contact__giant-wrap {
+    bottom: var(--space-14);
+  }
+
+  .contact__footer {
+    bottom: var(--space-6);
+  }
 }

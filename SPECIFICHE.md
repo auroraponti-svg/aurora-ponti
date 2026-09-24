@@ -141,7 +141,7 @@ I progetti non sono tutti nella stessa situazione, quindi la destinazione si dic
 
 | Stato | Quando si usa | Cosa fa la riga |
 | --- | --- | --- |
-| `caso` | Esiste una pagina di caso studio | Cursore "Vedi il caso →", riga cliccabile, porta a `progetti/<slug>.html` ⚠ |
+| `caso` | Esiste una pagina di caso studio | Cursore "Vedi il caso →", riga cliccabile, porta a `progetti/<slug>.html` ⚠ → *superato da D17: apre il popup di approfondimento* |
 | `link` | Non c'è il caso, ma il lavoro è online | Cursore "Vedi il sito →" (o "Vedi il profilo →"), apre l'URL esterno in nuova scheda con `rel="noopener"` |
 | `nessuno` | Né l'uno né l'altro | Nessun cursore, nessun hover, riga non cliccabile. Resta leggibile come scheda descrittiva |
 
@@ -154,6 +154,10 @@ Lo stato vive nel markup come `data-destinazione="caso|link|nessuno"`, così cam
 Stessa logica sulle righe della timeline (sezione 06): oggi non portano da nessuna parte, quindi niente hover che suggerisca un click — il cambio di fondo `--tint` va bene perché segnala lettura, non destinazione.
 
 ### La pagina di caso studio
+
+> ⚠ **Superata dalla decisione D17 (24 settembre 2026):** l'approfondimento si apre in un popup sulla pagina, non
+> in una pagina separata. La struttura qui sotto (testata, contesto, cosa ho fatto, risultati) resta la traccia
+> dei contenuti del popup.
 
 Un template solo, riempito con contenuti diversi. Stesso sistema di colori, tipografia e margini del portfolio: deve sembrare la stessa casa, non un allegato.
 
@@ -361,11 +365,9 @@ Risposte alle domande aperte prima dello sviluppo. Valgono come il resto del doc
 - **D3 — Statistiche della sezione 02.** Segnaposto finché non c'è conferma che le cifre (€200K, 15, 8) si possono
   pubblicare.
 - **D4 — Sezione 02.** Contatore `01 / 01`, frecce nascoste finché gli altri casi non esistono. "Vedi il caso
-  completo" porta alla pagina di caso studio: la modale ipotizzata in un primo momento è superata da
-  "La pagina di caso studio".
-- **D5 — Destinazioni.** Il meccanismo `data-destinazione` si predispone subito, per tutte le righe progetto. Per
-  ora: FLU / Uniting è `caso` (pagina con segnaposto), le tre righe della sezione 03 sono `nessuno`. Lo stato
-  definitivo di ogni progetto arriva con i contenuti (vedi "Cosa serve da Aurora").
+  completo" apre il popup di approfondimento di FLU / Uniting (vedi D17).
+- **D5 — Destinazioni.** Il meccanismo `data-destinazione` resta nel markup. Tutti e quattro i progetti sono
+  `caso`: aprono il proprio popup di approfondimento (D17).
 - **D6 — Percorso.** Le due voci "Stage marketing — Boggi Milano" (2021 e 2019) sono corrette, non un doppione.
 - **D7 — Pulsante "Guarda i progetti".** Porta al primo progetto, la sezione 02.
 
@@ -374,8 +376,10 @@ Risposte alle domande aperte prima dello sviluppo. Valgono come il resto del doc
 - **D8 — Schermi oltre 1440px.** Il contenuto sta in una colonna di 1440px centrata: il bordo sinistro resta
   identico in tutte le sezioni, solo più a destra. Fondi colorati e pannelli della sezione 02 restano a tutta
   larghezza.
-- **D9 — Tablet (768–1023px).** Le sezioni 02, 03 e 04 si impilano già come su mobile; le altre restano come su
-  desktop. Il margine resta 90px fino a 768px, come da tabella responsive.
+- **D9 — Tablet (768–1023px).** Le sezioni 02, 03, 04 e 05 si impilano già come su mobile; le altre restano come
+  su desktop. Il margine resta 90px fino a 768px, come da tabella responsive. *(La 05 è stata aggiunta costruendo
+  il responsive: con tre colonne a 768px i paragrafi scendevano a circa 20 caratteri per riga, metà della misura
+  minima.)*
 - **D10 — "CONTATTO" (sezione 07).** Rientra sempre nei bordi, a qualsiasi larghezza, desktop compreso.
 - **D11 — Specifiche e mockup.** Dove non concordano vince questo documento: sezione 02 divisa 52% / 48% (il mockup
   misura circa 47 / 53), immagini della sezione 03 alte 172px (il wireframe dice 160).
@@ -400,3 +404,31 @@ Risposte alle domande aperte prima dello sviluppo. Valgono come il resto del doc
   in console; i font arrivano comunque dal CSS. Il precarico quindi si attiva solo quando il sito è su un server.
 - **D16 — Correzioni tecniche.** Le note ⚠ sono correzioni concordate e sostituiscono il testo originale dove lo
   contraddicono.
+
+### Approfondimenti e responsive (24 settembre 2026, punto 3)
+
+- **D17 — Approfondimenti in popup.** Sotto ogni progetto (i tre della sezione 03 e FLU / Uniting nella 02) c'è un
+  pulsante che apre un popup grande sulla pagina con l'approfondimento: niente pagina separata, per restare
+  snelli. Nella 03 il pulsante si chiama "Vedi di più"; nella 02 resta "Vedi il caso completo", come nel mockup.
+  - Il popup è un `<dialog>` nativo: si apre anche senza JavaScript nei browser recenti (`commandfor`), blocca lo
+    scroll della pagina, si chiude con Esc, con la X o cliccando fuori, e riporta il focus al pulsante.
+  - Contenuti: testata (categoria e anno, nome), una riga di sintesi, un'immagine, poi i blocchi "Il contesto",
+    "Cosa ho fatto", "Risultati". Tutti `LOREM — DA FORNIRE` finché non arrivano i testi.
+  - Su desktop largo fino a 1120px e alto al massimo quanto la finestra meno 80px; sotto i 768px a tutto schermo.
+  - Nella 03 l'area del pulsante copre tutta la riga: si può cliccare ovunque, immagine compresa, e il cursore
+    "Vedi progetto →" (punto 4) mantiene la promessa. Su touch il pulsante è sempre visibile, quindi la freccia
+    statica accanto al nome prevista in "Cosa cambia nel movimento" non serve più.
+  - Conseguenza accettata: l'approfondimento non ha un indirizzo proprio da condividere.
+- **D18 — Scelte del responsive** dove la tabella non dà un valore:
+  - titoli sotto i 768px ridotti in proporzione, così il nome dell'hero resta il testo più grande: titolo grande
+    40px, titolo sezione 34px (compatto 32), titolo piccolo 30, nome progetto 28, attacco 26, tappa 24, riga
+    timeline 20. Paragrafi e dati restano uguali;
+  - foto dell'hero: sotto i 1067px si stringe al 30% della finestra (sempre 3:4); sotto i 768px è a tutta larghezza
+    in 4:3;
+  - linee dell'hero su mobile: mantengono le proporzioni e si centrano, invece di schiacciarsi;
+  - numeri di sfondo della 03 sotto i 1024px: 64px, allineati al bordo del testo, senza sbordare ("in linea col
+    testo");
+  - sezione 07 sotto i 768px: "CONTATTO" sale sopra il piede di pagina invece di sovrapporsi, perché lì hanno
+    quasi la stessa dimensione;
+  - aree toccabili: link e pulsanti alti almeno 44px; dove il disegno li vuole più bassi, l'area cresce ma lo
+    spazio visivo resta quello del mockup.

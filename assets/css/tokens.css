@@ -223,3 +223,28 @@
   --ease-out:    cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
+
+
+/* -------------------------------------------------------------------------
+   SOTTO I 768px
+   Margine da 90 a 24px. Nome dell'hero (44–52px) e frase della sezione 05
+   (36–42px) seguono la tabella responsive delle specifiche; gli altri
+   titoli scendono in proporzione, così il nome resta il più grande.
+   ------------------------------------------------------------------------- */
+
+@media (width < 768px) {
+  :root {
+    --margin-x: 24px;
+
+    --fs-hero:            clamp(2.75rem, 12vw, 3.25rem);   /* 44–52px */
+    --fs-quote:           clamp(2.25rem, 10vw, 2.625rem);  /* 36–42px */
+    --fs-title-xl:        2.5rem;    /* 40px (desktop 64) */
+    --fs-section:         2.125rem;  /* 34px (desktop 52) */
+    --fs-section-compact: 2rem;      /* 32px (desktop 46) */
+    --fs-title-sm:        1.875rem;  /* 30px (desktop 40) */
+    --fs-project:         1.75rem;   /* 28px (desktop 36) */
+    --fs-lead:            1.625rem;  /* 26px (desktop 32) */
+    --fs-step:            1.5rem;    /* 24px (desktop 28) */
+    --fs-timeline:        1.25rem;   /* 20px (desktop 23) */
+  }
+}
