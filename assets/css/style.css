@@ -9,6 +9,7 @@
    4. Impaginazione ... colonna centrale e altezza delle sezioni
    5. Componenti ...... skip link, barra, pulsanti, link, segnaposto
    6. Sezioni ......... 01 Hero → 07 Contatto
+   7. Movimento ....... animazioni, hover, cursore, movimento ridotto
    ========================================================================= */
 
 
@@ -1289,5 +1290,514 @@ html:has(.modal[open]) {
 
   .contact__footer {
     bottom: var(--space-6);
+  }
+}
+
+
+/* =========================================================================
+   7. MOVIMENTO
+   Riga per riga dalla tabella delle animazioni di SPECIFICHE.md.
+
+   Come funziona il "sipario":
+   - .js           (su <html>) il JavaScript è partito: attiva hero e barra;
+   - .m-armed      il blocco era fuori schermo al caricamento: stato iniziale;
+   - .m-in         il blocco è entrato nello schermo: stato finale.
+   Senza JavaScript nessuna di queste classi esiste e tutto è visibile.
+   Le transizioni stanno solo sullo stato .m-in: nascondere è istantaneo
+   (e invisibile, perché avviene fuori schermo), rivelare è animato.
+   ========================================================================= */
+
+/* Scroll morbido per "Contatti" e "Guarda i progetti", solo se gradito */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+
+/* ---------- Barra: fade + translateY(-8px → 0), 300ms ---------- */
+
+.js .site-header {
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+  transition: opacity 300ms var(--ease-out), transform 300ms var(--ease-out);
+}
+
+/* Compare dopo l'80% dell'hero, o quando ci si arriva col Tab */
+.js .site-header.is-visible,
+.js .site-header:focus-within {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+
+/* ---------- 01 Hero ----------
+   Blocco: fade + scale(1.04 → 1), 900ms, al caricamento.
+   Nome: clip-path dal basso, riga per riga, 700ms, sfalsate 80ms.
+   Alla fine il ritaglio sparisce del tutto (fill backwards), così non
+   taglia le lettere che escono dalla riga. */
+
+@keyframes hero-block {
+  from { opacity: 0; transform: scale(1.04); }
+}
+
+@keyframes hero-line {
+  from { clip-path: inset(100% -0.2em -0.2em -0.2em); }
+  to   { clip-path: inset(-0.2em); }
+}
+
+.js .hero__inner {
+  animation: hero-block 900ms var(--ease-out) both;
+}
+
+.js .hero__name-line {
+  animation: hero-line 700ms var(--ease-out) 100ms backwards;
+}
+
+.js .hero__name-line + .hero__name-line {
+  animation-delay: 180ms;
+}
+
+
+/* ---------- 02 Progetto in evidenza ----------
+   Foto: clip-path da sinistra, 900ms.
+   Testo: fade + translateY(24px → 0), 600ms, sfalsate 80ms. */
+
+.m-armed .featured__media {
+  clip-path: inset(0 100% 0 0);
+}
+
+.m-in .featured__media {
+  clip-path: inset(0);
+  transition: clip-path 900ms var(--ease-out);
+}
+
+.m-armed .case > * {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.m-in .case > * {
+  opacity: 1;
+  transform: none;
+  transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out);
+}
+
+.m-in .case > :nth-child(2) { transition-delay: 80ms; }
+.m-in .case > :nth-child(3) { transition-delay: 160ms; }
+.m-in .case > :nth-child(4) { transition-delay: 240ms; }
+.m-in .case > :nth-child(5) { transition-delay: 320ms; }
+
+
+/* ---------- 03 Altri progetti (ogni riga per conto suo) ----------
+   Numero di sfondo: clip-path dal basso, 400ms, per primo.
+   Testo: fade + translateY(16px → 0), 500ms, sfalsate 40ms. */
+
+.m-armed .work__num {
+  clip-path: inset(100% 0 0 0);
+}
+
+.m-in .work__num {
+  clip-path: inset(0);
+  transition: clip-path 400ms var(--ease-out);
+}
+
+.m-armed .work__body > * {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.m-in .work__body > * {
+  opacity: 1;
+  transform: none;
+  transition: opacity 500ms var(--ease-out) 100ms, transform 500ms var(--ease-out) 100ms;
+}
+
+.m-in .work__body > :nth-child(2) { transition-delay: 140ms; }
+.m-in .work__body > :nth-child(3) { transition-delay: 180ms; }
+.m-in .work__body > :nth-child(4) { transition-delay: 220ms; }
+
+/* Immagine: cornice ferma, l'immagine dentro scorre (GSAP, main.js) */
+.work__image {
+  overflow: hidden;
+}
+
+
+/* ---------- 04 Come lavoro ----------
+   Linea: scaleX(0 → 1) da sinistra, 800ms.
+   Pallini: quando la linea li raggiunge, fade + scale(0.8 → 1), 300ms.
+   (La linea rallenta alla fine: raggiunge i pallini a 0, 50, 110, 200ms.)
+   Testo: dopo il proprio pallino, fade + translateY(12px → 0), 400ms,
+   sfalsate 120ms. */
+
+.process::before {
+  transform-origin: left center;
+}
+
+.m-armed.process::before {
+  transform: scaleX(0);
+}
+
+.m-in.process::before {
+  transform: none;
+  transition: transform 800ms var(--ease-out);
+}
+
+.m-armed .process__dot {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.m-in .process__dot {
+  opacity: 1;
+  transform: none;
+  transition: opacity 300ms var(--ease-out), transform 300ms var(--ease-out);
+}
+
+.m-armed .process__step > :not(.process__dot) {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.m-in .process__step > :not(.process__dot) {
+  opacity: 1;
+  transform: none;
+  transition: opacity 400ms var(--ease-out) 300ms, transform 400ms var(--ease-out) 300ms;
+}
+
+.m-in .process__step:nth-child(2) .process__dot { transition-delay: 50ms; }
+.m-in .process__step:nth-child(3) .process__dot { transition-delay: 110ms; }
+.m-in .process__step:nth-child(4) .process__dot { transition-delay: 200ms; }
+
+.m-in .process__step:nth-child(2) > :not(.process__dot) { transition-delay: 420ms; }
+.m-in .process__step:nth-child(3) > :not(.process__dot) { transition-delay: 540ms; }
+.m-in .process__step:nth-child(4) > :not(.process__dot) { transition-delay: 660ms; }
+
+/* In verticale (sotto i 1024px) la linea scende tratto per tratto */
+@media (width < 1024px) {
+  .process__step::before {
+    transform-origin: center top;
+  }
+
+  .m-armed .process__step::before {
+    transform: scaleY(0);
+  }
+
+  .m-in .process__step::before {
+    transform: none;
+    transition: transform 300ms linear;
+  }
+
+  .m-in .process__step:nth-child(2)::before,
+  .m-in .process__step:nth-child(2) .process__dot { transition-delay: 300ms; }
+  .m-in .process__step:nth-child(3)::before,
+  .m-in .process__step:nth-child(3) .process__dot { transition-delay: 600ms; }
+  .m-in .process__step:nth-child(4) .process__dot { transition-delay: 900ms; }
+
+  .m-in .process__step:nth-child(1) > :not(.process__dot) { transition-delay: 150ms; }
+  .m-in .process__step:nth-child(2) > :not(.process__dot) { transition-delay: 450ms; }
+  .m-in .process__step:nth-child(3) > :not(.process__dot) { transition-delay: 750ms; }
+  .m-in .process__step:nth-child(4) > :not(.process__dot) { transition-delay: 1050ms; }
+}
+
+
+/* ---------- 05 Chi sono ----------
+   Tre blocchi: fade + translateY(20px → 0), 500ms, sfalsate 120ms.
+   Linea tratteggiata: dopo i blocchi, scaleX(0 → 1) da sinistra, 600ms.
+   Frase: sale dopo la linea; la parola in corsivo compare 200ms dopo,
+   fade da opacity 0, 500ms. */
+
+.m-armed .about__blocks > *,
+.m-armed .about__quote {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.m-in .about__blocks > *,
+.m-in .about__quote {
+  opacity: 1;
+  transform: none;
+  transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out);
+}
+
+.m-in .about__blocks > :nth-child(2) { transition-delay: 120ms; }
+.m-in .about__blocks > :nth-child(3) { transition-delay: 240ms; }
+
+.about__rule {
+  transform-origin: left center;
+}
+
+.m-armed .about__rule {
+  transform: scaleX(0);
+}
+
+.m-in .about__rule {
+  transform: none;
+  transition: transform 600ms var(--ease-out) 500ms;
+}
+
+.m-in .about__quote {
+  transition-delay: 900ms;
+}
+
+.m-armed .about__quote em {
+  opacity: 0;
+}
+
+.m-in .about__quote em {
+  opacity: 1;
+  transition: opacity 500ms var(--ease-out) 1100ms;
+}
+
+
+/* ---------- 06 Percorso ----------
+   Righe: dall'alto in basso, fade + translateY(12px → 0), 400ms,
+   sfalsate 60ms, come se venissero scritte. */
+
+.m-armed .timeline__row {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.m-in .timeline__row {
+  opacity: 1;
+  transform: none;
+  transition: opacity 400ms var(--ease-out), transform 400ms var(--ease-out);
+}
+
+.m-in .timeline__row:nth-child(2) { transition-delay: 60ms; }
+.m-in .timeline__row:nth-child(3) { transition-delay: 120ms; }
+.m-in .timeline__row:nth-child(4) { transition-delay: 180ms; }
+.m-in .timeline__row:nth-child(5) { transition-delay: 240ms; }
+.m-in .timeline__row:nth-child(6) { transition-delay: 300ms; }
+
+
+/* ---------- 07 Contatto ----------
+   Scritta gigante: fade + translateY(60px → 0), 1100ms, per prima.
+   Contenuto in primo piano: 300ms dopo, fade + translateY(16px → 0), 600ms. */
+
+.m-armed .contact__giant {
+  opacity: 0;
+  transform: translateY(60px);
+}
+
+.m-in .contact__giant {
+  opacity: 1;
+  transform: none;
+  transition: opacity 1100ms var(--ease-out), transform 1100ms var(--ease-out);
+}
+
+.m-armed .contact__inner,
+.m-armed .contact__footer {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.m-in .contact__inner,
+.m-in .contact__footer {
+  opacity: 1;
+  transform: none;
+  transition: opacity 600ms var(--ease-out) 300ms, transform 600ms var(--ease-out) 300ms;
+}
+
+
+/* ---------- Popup: fade + scale(0.96 → 1), 300ms ----------
+   @starting-style dà lo stato di partenza all'apertura; allow-discrete
+   lascia il popup visibile mentre si chiude. */
+
+.modal,
+.modal::backdrop {
+  transition:
+    opacity 300ms var(--ease-out),
+    transform 300ms var(--ease-out),
+    overlay 300ms var(--ease-out) allow-discrete,
+    display 300ms var(--ease-out) allow-discrete;
+}
+
+.modal:not([open]) {
+  opacity: 0;
+  transform: scale(0.96);
+}
+
+.modal:not([open])::backdrop {
+  opacity: 0;
+}
+
+@starting-style {
+  .modal[open] {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  .modal[open]::backdrop {
+    opacity: 0;
+  }
+}
+
+
+/* ---------- Cursore "Vedi di più →" (creato da main.js) ---------- */
+
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 18px 0 0 18px; /* un po' sotto e a destra della punta del mouse */
+  padding: var(--space-3) var(--space-4);
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--bg);
+  font-weight: 500;
+  font-size: var(--fs-meta);
+  line-height: 1;
+  white-space: nowrap;
+  pointer-events: none;
+  will-change: transform;
+  opacity: 0;
+  scale: 0.96;
+  transition: opacity 200ms var(--ease-out), scale 200ms var(--ease-out);
+}
+
+.cursor.is-active {
+  opacity: 1;
+  scale: 1;
+}
+
+
+/* ---------- Stati al passaggio del mouse ----------
+   Solo con mouse o trackpad: sul touch l'hover resterebbe appiccicato. */
+
+@media (hover: hover) and (pointer: fine) {
+  /* Pulsante hero: fondo pieno */
+  .btn-pill {
+    transition: background-color 200ms var(--ease-out), color 200ms var(--ease-out);
+  }
+
+  .btn-pill:hover {
+    background: var(--blue);
+    color: var(--bg);
+  }
+
+  /* Frecce sez. 02 e X del popup: inversione colore */
+  .btn-round {
+    transition: background-color 200ms var(--ease-out), color 200ms var(--ease-out), border-color 200ms var(--ease-out);
+  }
+
+  .btn-round:hover {
+    border-color: var(--bg);
+    background: var(--bg);
+    color: var(--blue-deep);
+  }
+
+  .btn-round--filled:hover {
+    background: transparent;
+    color: var(--bg);
+  }
+
+  .modal__close:hover {
+    border-color: var(--ink);
+    background: var(--ink);
+    color: var(--bg);
+  }
+
+  /* Righe timeline: fondo --tint, che sborda di 16px ai lati così il
+     testo resta sul margine di 90px */
+  .timeline__row {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .timeline__row::before {
+    content: "";
+    position: absolute;
+    inset: 0 calc(-1 * var(--space-4));
+    z-index: -1;
+    background: var(--tint);
+    opacity: 0;
+    transition: opacity 200ms var(--ease-out);
+  }
+
+  .timeline__row:hover::before {
+    opacity: 1;
+  }
+}
+
+/* Qualsiasi elemento premibile: scale(0.97), 160ms.
+   Non su "Vedi di più" della 03: la sua area copre la riga intera e
+   rimpicciolirla durante il clic farebbe perdere il clic stesso. */
+.btn-pill:active,
+.btn-round:active,
+.link-arrow:not(.work__more):active {
+  transform: scale(0.97);
+  transition: transform 160ms var(--ease-out);
+}
+
+
+/* ---------- Movimento ridotto ----------
+   Spariscono parallax, spostamenti e clip-path; restano solo le
+   dissolvenze, accorciate a 200ms. Il parallax e il cursore li spegne
+   main.js. */
+
+@media (prefers-reduced-motion: reduce) {
+  .js .hero__inner {
+    animation: fade-in 200ms var(--ease-out) both;
+  }
+
+  .js .hero__name-line {
+    animation: none;
+  }
+
+  .js .site-header {
+    transform: none;
+    transition: none;
+  }
+
+  .m-armed *,
+  .m-armed.process::before,
+  .m-armed .process__step::before {
+    transform: none !important;
+    clip-path: none !important;
+  }
+
+  .m-in *,
+  .m-in.process::before {
+    transition-duration: 200ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  .modal,
+  .modal:not([open]),
+  .modal[open] {
+    transform: none;
+  }
+
+  .modal,
+  .modal::backdrop {
+    transition-duration: 200ms;
+  }
+
+  .btn-pill:active,
+  .btn-round:active,
+  .link-arrow:active {
+    transform: none;
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+}
+
+/* In stampa tutto visibile, anche ciò che non è ancora stato rivelato */
+@media print {
+  .m-armed *,
+  .js .site-header {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
   }
 }

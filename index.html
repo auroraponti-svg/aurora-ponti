@@ -6,6 +6,16 @@
   <title>Aurora Ponti — Marketing Manager Junior</title>
   <meta name="description" content="Strategia, marketing automation, CRM, content e coordinamento di progetti digitali.">
 
+  <!-- Segnale "il JavaScript è partito": la classe js abilita le animazioni.
+       Se main.js non arriva entro 4 secondi la classe viene tolta e la
+       pagina resta com'è senza animazioni: nulla rimane mai nascosto. -->
+  <script>
+    document.documentElement.classList.add('js');
+    setTimeout(function () {
+      if (!window.__motionReady) document.documentElement.classList.remove('js');
+    }, 4000);
+  </script>
+
   <!-- Precarico dei due font visibili sopra la piega (DM Sans è un unico file
        per 400 e 500). Solo su un server: aprendo index.html come file il
        browser rifiuta il precarico e segna un errore. I font arrivano
@@ -28,6 +38,9 @@
   <link rel="stylesheet" href="assets/css/tokens.css">
   <link rel="stylesheet" href="assets/css/style.css">
 
+  <!-- GSAP e ScrollTrigger servono solo al parallax; main.js fa il resto -->
+  <script src="assets/js/vendor/gsap.min.js" defer></script>
+  <script src="assets/js/vendor/ScrollTrigger.min.js" defer></script>
   <script src="assets/js/main.js" defer></script>
 </head>
 <body>

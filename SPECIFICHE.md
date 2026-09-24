@@ -431,3 +431,24 @@ Risposte alle domande aperte prima dello sviluppo. Valgono come il resto del doc
     quasi la stessa dimensione;
   - aree toccabili: link e pulsanti alti almeno 44px; dove il disegno li vuole più bassi, l'area cresce ma lo
     spazio visivo resta quello del mockup.
+
+### Movimento (24 settembre 2026, punto 4)
+
+- **D19 — Popup.** Si apre con dissolvenza + `scale(0.96 → 1)`, 300ms ease-out; si chiude allo stesso modo.
+- **D20 — Cursore.** Scritta "Vedi di più →", come il pulsante (con `data-destinazione="link"` diventerebbe "Vedi il
+  sito →"). Etichetta scura accanto al puntatore; il puntatore del sistema resta visibile.
+- **D21 — Link diretti ai popup.** Ogni popup ha un indirizzo: `…/#pizzerie-sara`, `#cannavacciuolo-group`,
+  `#the-nice-kitchen`, `#flu-uniting`. Aprendolo, il popup si apre da solo; chiudendolo, l'indirizzo torna pulito.
+- **D22 — Dettagli dell'implementazione.**
+  - Rivelazioni: si animano solo i blocchi fuori schermo al caricamento; quello che si vede subito resta fermo
+    (niente lampeggi). Se `main.js` non arriva entro 4 secondi, le animazioni si spengono e tutto resta visibile.
+  - Sezione 04: i pallini si accendono quando la linea li raggiunge (0, 50, 110, 200ms, perché la linea rallenta
+    verso la fine); il testo di ogni tappa parte dopo il proprio pallino, sfalsato di 120ms.
+  - Sezione 05: la tabella non dice nulla della frase grande; sale dopo la linea tratteggiata (fade + 20px), e il
+    corsivo compare 200ms dopo.
+  - Statistiche: il conteggio da zero parte solo se la cifra contiene numeri; con i segnaposto `XX` non succede
+    nulla finché non arrivano i valori veri.
+  - Parallax: spento sotto i 768px (la tabella permette "ridotto o disattivato"). Quello delle immagini della 03
+    si accende da solo quando nelle cornici ci saranno le immagini vere.
+  - Cambio caso con le frecce (02): non costruito finché c'è un solo caso.
+  - La barra, nascosta in cima, ricompare anche quando ci si arriva col tasto Tab.
