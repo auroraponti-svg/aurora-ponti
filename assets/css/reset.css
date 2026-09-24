@@ -1,0 +1,100 @@
+/* =========================================================================
+   RESET
+   Azzera le differenze tra i browser (margini, dimensioni, font dei moduli).
+   Non contiene scelte di stile: quelle stanno in style.css.
+   ========================================================================= */
+
+/* Le misure includono bordo e padding: un riquadro largo 320px resta 320px */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Via i margini automatici: ogni distanza la decide style.css */
+* {
+  margin: 0;
+}
+
+html {
+  /* iOS non ingrandisce il testo da solo quando si ruota il telefono */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100svh;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* I titoli non ereditano il grassetto del browser: Instrument Serif ha un solo peso */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/* Immagini e grafica: blocchi che non escono mai dal contenitore */
+img,
+picture,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+img,
+video {
+  height: auto;
+}
+
+/* I moduli usano il font della pagina, non quello di sistema */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
+
+/* Le liste con role="list" perdono i pallini ma restano liste per i lettori di schermo */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+  padding: 0;
+}
+
+/* Parole lunghe (email, URL) vanno a capo invece di uscire dal bordo */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/* L'attributo hidden vince sempre, anche su display impostati altrove */
+[hidden] {
+  display: none !important;
+}

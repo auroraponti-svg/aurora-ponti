@@ -1,0 +1,162 @@
+/* =========================================================================
+   STILE DEL SITO
+   Usa solo i token di tokens.css: qui non compaiono colori o misure "a mano".
+
+   INDICE
+   1. Base ............ fondo, testo e font di tutta la pagina
+   2. Tipografia ...... una classe per ogni ruolo della tabella tipografica
+   3. Utilità ......... classi piccole riusate ovunque
+   4. Sezioni ......... 01 Hero → 07 Contatto (dal punto 2)
+   ========================================================================= */
+
+
+/* =========================================================================
+   1. BASE
+   ========================================================================= */
+
+html {
+  /* Vieta al browser di inventare un finto grassetto: Instrument Serif
+     ha un solo peso (400). Il corsivo resta permesso. */
+  font-synthesis: style;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--ink);
+  background: var(--bg);
+}
+
+/* Anello di focus: 2px, visibile solo quando si naviga da tastiera */
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+
+/* =========================================================================
+   2. TIPOGRAFIA
+   Una classe per ruolo, come nella tabella di SPECIFICHE.md.
+   Display = Instrument Serif (la voce), body = DM Sans (i dati).
+   ========================================================================= */
+
+/* Hero (nome) */
+.t-hero {
+  font-family: var(--font-display);
+  font-size: var(--fs-hero);
+  line-height: var(--lh-hero);
+  letter-spacing: var(--ls-hero);
+}
+
+/* Titolo sezione */
+.t-section {
+  font-family: var(--font-display);
+  font-size: var(--fs-section);
+  line-height: var(--lh-section);
+  letter-spacing: var(--ls-section);
+}
+
+/* Frase in evidenza (sez. 05) */
+.t-quote {
+  font-family: var(--font-display);
+  font-size: var(--fs-quote);
+  line-height: var(--lh-quote);
+  letter-spacing: var(--ls-quote);
+}
+
+/* Nome progetto */
+.t-project {
+  font-family: var(--font-display);
+  font-size: var(--fs-project);
+  line-height: var(--lh-project);
+  letter-spacing: var(--ls-project);
+}
+
+/* Tappa processo (sez. 04) */
+.t-step {
+  font-family: var(--font-display);
+  font-size: var(--fs-step);
+  line-height: var(--lh-step);
+  letter-spacing: var(--ls-step);
+}
+
+/* Riga timeline (sez. 06) */
+.t-timeline {
+  font-family: var(--font-display);
+  font-size: var(--fs-timeline);
+  line-height: var(--lh-timeline);
+  letter-spacing: var(--ls-timeline);
+}
+
+/* Paragrafo: colore secondario e misura massima in caratteri */
+.t-body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-body);
+  color: var(--ink-2);
+  max-width: var(--measure);
+}
+
+/* Meta / categoria */
+.t-meta {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: var(--fs-meta);
+  line-height: var(--lh-meta);
+  letter-spacing: var(--ls-meta);
+}
+
+/* Statistiche (sez. 02): cifre tabellari, così i numeri si incolonnano */
+.t-stat {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: var(--fs-stat);
+  line-height: var(--lh-stat);
+  letter-spacing: var(--ls-stat);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Corsivo dei titoli (es. "Altri lavori"): il colore lo decide la sezione */
+.t-hero em,
+.t-section em,
+.t-quote em,
+.t-project em,
+.t-step em,
+.t-timeline em {
+  font-style: italic;
+}
+
+
+/* =========================================================================
+   3. UTILITÀ
+   ========================================================================= */
+
+/* Cifre tabellari per numeri in colonna (date della timeline) */
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Nascosto alla vista, letto dai lettori di schermo (es. h2 delle sez. 02 e 05) */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+
+/* =========================================================================
+   4. SEZIONI
+   Arrivano al punto 2, una per blocco, in ordine di pagina:
+   01 Hero · 02 Progetto in evidenza · 03 Altri progetti · 04 Come lavoro ·
+   05 Chi sono · 06 Percorso · 07 Contatto
+   ========================================================================= */

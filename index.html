@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aurora Ponti — Marketing Manager Junior</title>
+  <meta name="description" content="Strategia, marketing automation, CRM, content e coordinamento di progetti digitali.">
+
+  <!-- Precarico dei due font visibili sopra la piega (DM Sans è un unico file
+       per 400 e 500). Solo su un server: aprendo index.html come file il
+       browser rifiuta il precarico e segna un errore. I font arrivano
+       comunque dal CSS, con o senza JavaScript. -->
+  <script>
+    if (location.protocol !== 'file:') {
+      ['instrument-serif-latin', 'dm-sans-latin'].forEach(function (name) {
+        var link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'font';
+        link.type = 'font/woff2';
+        link.crossOrigin = 'anonymous';
+        link.href = 'assets/fonts/' + name + '.woff2';
+        document.head.appendChild(link);
+      });
+    }
+  </script>
+
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <main id="contenuto">
+    <!-- Le sette sezioni arrivano al punto 2 -->
+  </main>
+
+</body>
+</html>
